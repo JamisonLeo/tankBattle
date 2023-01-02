@@ -15,9 +15,18 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     // 定义一个Vector，用来存放爆炸
     static Vector<Bomb> bombs = new Vector<>();
     // 定义三张图片，用于显示爆炸效果
-    Image image1 = null;
-    Image image2 = null;
-    Image image3 = null;
+    Image bomb1Image = null;
+    Image bomb2Image = null;
+    Image bomb3Image = null;
+    // 定义八张图片，分别显示双方四个方向的坦克
+    Image myTankUpImage = null;
+    Image myTankDownImage = null;
+    Image myTankLeftImage = null;
+    Image myTankRightImage = null;
+    Image enemyTankUpImage = null;
+    Image enemyTankDownImage = null;
+    Image enemyTankLeftImage = null;
+    Image enemyTankRightImage = null;
 
     public MyPanel() {
         // 创建我方坦克
@@ -34,21 +43,57 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             enemyTanks.add(enemyTank);
         }
 
+        // 初始化坦克图片
+        myTankUpImage = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_up.png"));
+        myTankDownImage = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_down.png"));
+        myTankLeftImage = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_left.png"));
+        myTankRightImage = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_right.png"));
+        enemyTankUpImage = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_up.png"));
+        enemyTankDownImage = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_down.png"));
+        enemyTankLeftImage = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_left.png"));
+        enemyTankRightImage = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_right.png"));
+
         // 初始化爆炸效果的图片
-        image1 = Toolkit.getDefaultToolkit().getImage(MyPanel.class.getResource("/tankBattle/bomb_1.png"));
-        image2 = Toolkit.getDefaultToolkit().getImage(MyPanel.class.getResource("/tankBattle/bomb_2.png"));
-        image3 = Toolkit.getDefaultToolkit().getImage(MyPanel.class.getResource("/tankBattle/bomb_3.png"));
+        bomb1Image = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_1.png"));
+        bomb2Image = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_2.png"));
+        bomb3Image = Toolkit.getDefaultToolkit()
+            .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_3.png"));
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(5, 0, 1200, 945);
+        g.fillRect(3, 0, 980, 760);
         g.setColor(Color.black);
 
         // 画出我方坦克
-        drawTank(myTank.getX(), myTank.getY(), g, myTank.getDirection(), 0);
+        if (myTank != null && myTank.isLive()) {
+            switch (myTank.getDirection()) {
+                case UP:
+                    g.drawImage(myTankUpImage, myTank.getX(), myTank.getY(), 40, 40, this);
+                    break;
+                case DOWN:
+                    g.drawImage(myTankDownImage, myTank.getX(), myTank.getY(), 40, 40, this);
+                    break;
+                case LEFT:
+                    g.drawImage(myTankLeftImage, myTank.getX(), myTank.getY(), 40, 40, this);
+                    break;
+                case RIGHT:
+                    g.drawImage(myTankRightImage, myTank.getX(), myTank.getY(), 40, 40, this);
+                    break;
+            }
+        }
 
         // 画出我方坦克子弹
         drawShots(g, ((MyTank) myTank).getShots());
@@ -57,11 +102,11 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         for (int i = 0; i < bombs.size(); i++) {
             Bomb bomb = bombs.get(i);
             if (bomb.getLife() > 27)
-                g.drawImage(image1, bomb.getX(), bomb.getY(), 90, 90, this);
+                g.drawImage(bomb1Image, bomb.getX(), bomb.getY(), 40, 40, this);
             else if (bomb.getLife() > 18)
-                g.drawImage(image2, bomb.getX(), bomb.getY(), 90, 90, this);
+                g.drawImage(bomb2Image, bomb.getX(), bomb.getY(), 40, 40, this);
             else
-                g.drawImage(image3, bomb.getX(), bomb.getY(), 90, 90, this);
+                g.drawImage(bomb3Image, bomb.getX(), bomb.getY(), 40, 40, this);
             bomb.subLife();
             if (bomb.getLife() == 0)
                 bombs.remove(bomb);
@@ -71,7 +116,20 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         for (Tank enemyTank : enemyTanks) {
             if (enemyTank.isLive()) {
                 // 画出坦克
-                drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirection(), 1);
+                switch (enemyTank.getDirection()) {
+                    case UP:
+                    g.drawImage(enemyTankUpImage, enemyTank.getX(), enemyTank.getY(), 40, 40, this);
+                    break;
+                    case DOWN:
+                    g.drawImage(enemyTankDownImage, enemyTank.getX(), enemyTank.getY(), 40, 40, this);
+                    break;
+                    case LEFT:
+                    g.drawImage(enemyTankLeftImage, enemyTank.getX(), enemyTank.getY(), 40, 40, this);
+                    break;
+                    case RIGHT:
+                    g.drawImage(enemyTankRightImage, enemyTank.getX(), enemyTank.getY(), 40, 40, this);
+                    break;
+                }
             }
         }
         // 画出敌方坦克的所有子弹
@@ -84,73 +142,12 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
      * @param shots 该坦克的子弹集合
      */
     public void drawShots(Graphics g, Vector<Shot> shots) {
-        for (Shot shot : shots) {
+        for (int i = 0; i < shots.size(); i++) {
+            Shot shot = shots.get(i);
             if (shot.isLive()) {
                 g.setColor(Color.white);
                 g.fillOval(shot.getX(), shot.getY(), 8, 8);
             }
-        }
-    }
-
-    /**
-     * 画出坦克
-     * @param x      坦克左上角x轴坐标
-     * @param y      坦克左上角y轴坐标
-     * @param g      画笔
-     * @param direct 坦克方向
-     * @param type   坦克类型(0-己方坦克，1-敌方坦克)
-     */
-    public void drawTank(int x, int y, Graphics g, Direction direct, int type) {
-        switch (type) {
-            case 0: // 我方坦克颜色
-                g.setColor(new Color(0, 255, 255));
-                break;
-            case 1: // 敌方坦克颜色
-                g.setColor(new Color(246, 85, 85));
-                break;
-        }
-
-        switch (direct) {
-            // 向上的坦克
-            case UP:
-                g.fill3DRect(x, y, 15, 90, true); // 左轮子
-                g.fill3DRect(x + 45, y, 15, 90, true); // 右轮子
-                g.fill3DRect(x + 15, y + 15, 30, 60, true); // 中间部分
-                g.setColor(Color.gray);
-                g.fillOval(x + 15, y + 30, 30, 30); // 顶
-                g.fill3DRect(x + 28, y - 20, 4, 50, true); // 炮筒
-                g.fill3DRect(x + 26, y - 20, 8, 20, true); // 炮筒头
-                break;
-            // 向下的坦克
-            case DOWN:
-                g.fill3DRect(x, y, 15, 90, true); // 左轮子
-                g.fill3DRect(x + 45, y, 15, 90, true); // 右轮子
-                g.fill3DRect(x + 15, y + 15, 30, 60, true); // 中间部分
-                g.setColor(Color.gray);
-                g.fillOval(x + 15, y + 30, 30, 30); // 顶
-                g.fill3DRect(x + 28, y + 60, 4, 50, true); // 炮筒
-                g.fill3DRect(x + 26, y + 90, 8, 20, true); // 炮筒头
-                break;
-            // 向左的坦克
-            case LEFT:
-                g.fill3DRect(x - 15, y + 15, 90, 15, true); // 左轮子
-                g.fill3DRect(x - 15, y + 60, 90, 15, true); // 右轮子
-                g.fill3DRect(x, y + 30, 60, 30, true); // 中间部分
-                g.setColor(Color.gray);
-                g.fillOval(x + 15, y + 30, 30, 30); // 顶
-                g.fill3DRect(x - 35, y + 43, 50, 4, true); // 炮筒
-                g.fill3DRect(x - 35, y + 41, 20, 8, true); // 炮筒头
-                break;
-            // 向右的坦克
-            case RIGHT:
-                g.fill3DRect(x - 15, y + 15, 90, 15, true); // 左轮子
-                g.fill3DRect(x - 15, y + 60, 90, 15, true); // 右轮子
-                g.fill3DRect(x, y + 30, 60, 30, true); // 中间部分
-                g.setColor(Color.gray);
-                g.fillOval(x + 15, y + 30, 30, 30); // 顶
-                g.fill3DRect(x + 45, y + 43, 50, 4, true); // 炮筒
-                g.fill3DRect(x + 75, y + 41, 20, 8, true); // 炮筒头
-                break;
         }
     }
 
@@ -218,15 +215,10 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
+    /**判断是否有坦克被击中 */
+    class IsHit extends Thread {
+        @Override
+        public void run() {
             MyTank mt = (MyTank) myTank;
 
             new Thread(mt).start();
@@ -241,6 +233,27 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     }
                 }
             }
+
+            // 判断敌方坦克是否击中我方坦克
+            for (int i = 0; i < shots.size(); i++) {
+                Shot shot = getShots().get(i);
+                if (shot.isLive()) {
+                    Tank.hitTank(shot, mt);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+            new IsHit().start();
 
             this.repaint();
         }
