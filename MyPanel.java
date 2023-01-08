@@ -7,9 +7,12 @@ import java.awt.event.KeyListener;
 import java.util.Vector;
 
 public class MyPanel extends JPanel implements KeyListener, Runnable {
-    static Tank myTank = null; // 我方坦克
-    static Vector<Tank> enemyTanks = new Vector<>(); // 敌方坦克
-    int enemyTankSize = 3; // 敌方坦克数量
+    // 我方坦克
+    static Tank myTank = null;
+    // 敌方坦克集合
+    static Vector<Tank> enemyTanks = new Vector<>();
+    // 敌方坦克数量
+    int enemyTankSize = 3;
     // 敌方坦克子弹集合
     static Vector<Shot> shots = new Vector<>();
     // 定义一个Vector，用来存放爆炸
