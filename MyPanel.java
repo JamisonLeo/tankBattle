@@ -264,7 +264,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(5);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
