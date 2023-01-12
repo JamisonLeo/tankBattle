@@ -48,29 +48,29 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
 
         // 初始化坦克图片
         myTankUpImage = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_up.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_up.png"));
         myTankDownImage = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_down.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_down.png"));
         myTankLeftImage = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_left.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_left.png"));
         myTankRightImage = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_right.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_right.png"));
         enemyTankUpImage = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_up.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_up.png"));
         enemyTankDownImage = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_down.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_down.png"));
         enemyTankLeftImage = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_left.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_left.png"));
         enemyTankRightImage = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_right.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_right.png"));
 
         // 初始化爆炸效果的图片
         bomb1Image = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_1.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_1.png"));
         bomb2Image = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_2.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_2.png"));
         bomb3Image = Toolkit.getDefaultToolkit()
-            .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_3.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_3.png"));
     }
 
     @Override
@@ -82,20 +82,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
 
         // 画出我方坦克
         if (myTank != null && myTank.isLive()) {
-            switch (myTank.getDirection()) {
-                case UP:
-                    g.drawImage(myTankUpImage, myTank.getX(), myTank.getY(), 40, 40, this);
-                    break;
-                case DOWN:
-                    g.drawImage(myTankDownImage, myTank.getX(), myTank.getY(), 40, 40, this);
-                    break;
-                case LEFT:
-                    g.drawImage(myTankLeftImage, myTank.getX(), myTank.getY(), 40, 40, this);
-                    break;
-                case RIGHT:
-                    g.drawImage(myTankRightImage, myTank.getX(), myTank.getY(), 40, 40, this);
-                    break;
-            }
+            drawTank(myTank.getX(), myTank.getY(), g, myTank.getDirection(), 0);
         }
 
         // 画出我方坦克子弹
@@ -119,20 +106,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         for (Tank enemyTank : enemyTanks) {
             if (enemyTank.isLive()) {
                 // 画出坦克
-                switch (enemyTank.getDirection()) {
-                    case UP:
-                    g.drawImage(enemyTankUpImage, enemyTank.getX(), enemyTank.getY(), 40, 40, this);
-                    break;
-                    case DOWN:
-                    g.drawImage(enemyTankDownImage, enemyTank.getX(), enemyTank.getY(), 40, 40, this);
-                    break;
-                    case LEFT:
-                    g.drawImage(enemyTankLeftImage, enemyTank.getX(), enemyTank.getY(), 40, 40, this);
-                    break;
-                    case RIGHT:
-                    g.drawImage(enemyTankRightImage, enemyTank.getX(), enemyTank.getY(), 40, 40, this);
-                    break;
-                }
+                drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirection(), 1);
             }
         }
         // 画出敌方坦克的所有子弹
@@ -140,7 +114,46 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     }
 
     /**
+     * 画出坦克
+     * 
+     * @param x         横坐标
+     * @param y         纵坐标
+     * @param g         画笔
+     * @param direction 坦克方向
+     * @param type      坦克阵营(0-我防坦克， 1-敌方坦克)
+     */
+    public void drawTank(int x, int y, Graphics g, Direction direction, int type) {
+        switch (direction) {
+            case UP:
+                if (type == 0)
+                    g.drawImage(myTankUpImage, x, y, 40, 50, this);
+                if (type == 1)
+                    g.drawImage(enemyTankUpImage, x, y, 40, 50, this);
+                break;
+            case DOWN:
+                if (type == 0)
+                    g.drawImage(myTankDownImage, x, y, 40, 50, this);
+                if (type == 1)
+                    g.drawImage(enemyTankDownImage, x, y, 40, 50, this);
+                break;
+            case LEFT:
+                if (type == 0)
+                    g.drawImage(myTankLeftImage, x - 5, y + 5, 50, 40, this);
+                if (type == 1)
+                    g.drawImage(enemyTankLeftImage, x - 5, y + 5, 50, 40, this);
+                break;
+            case RIGHT:
+                if (type == 0)
+                    g.drawImage(myTankRightImage, x - 5, y + 5, 50, 40, this);
+                if (type == 1)
+                    g.drawImage(enemyTankRightImage, x - 5, y + 5, 50, 40, this);
+                break;
+        }
+    }
+
+    /**
      * 画出坦克所有的子弹
+     * 
      * @param g     画笔
      * @param shots 该坦克的子弹集合
      */
@@ -218,7 +231,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
-    /**判断是否有坦克被击中 */
+    /** 判断是否有坦克被击中 */
     class IsHit extends Thread {
         @Override
         public void run() {
@@ -251,11 +264,11 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(20);
+                Thread.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
+
             new IsHit().start();
 
             this.repaint();

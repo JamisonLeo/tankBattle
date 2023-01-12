@@ -19,13 +19,13 @@ public class Tank {
                 shot = new Shot(getX() + 16, getY() - 8, Direction.UP);
                 return shot;
             case DOWN:
-                shot = new Shot(getX() + 16, getY() + 40, Direction.DOWN);
+                shot = new Shot(getX() + 16, getY() + 50, Direction.DOWN);
                 return shot;
             case LEFT:
-                shot = new Shot(getX(), getY() + 16, Direction.LEFT);
+                shot = new Shot(getX() - 13, getY() + 21, Direction.LEFT);
                 return shot;
             case RIGHT:
-                shot = new Shot(getX() + 40, getY() + 16, Direction.RIGHT);
+                shot = new Shot(getX() + 45, getY() + 21, Direction.RIGHT);
                 return shot;
         }
         return null;
@@ -38,17 +38,37 @@ public class Tank {
      * @param tank 坦克
      */
     public static void hitTank(Shot shot, Tank tank) {
-        if (shot.getX() + 8 > tank.x && shot.getX() < tank.x + 40
-                && shot.getY() + 8 > tank.y && shot.getY() < tank.y + 40) {
-            shot.setLive(false);
-            tank.setLive(false);
-            if (tank instanceof EnemyTank) {
-                MyPanel.enemyTanks.remove((EnemyTank) tank);
-            }
-            // 创建Bomb对象，加入到MyPanel的bombs集合中
-            Bomb bomb = new Bomb(tank.x, tank.y);
-            MyPanel.bombs.add(bomb);
+        switch (tank.direction) {
+            case UP:
+            case DOWN:
+                if (shot.getX() + 8 > tank.x && shot.getX() < tank.x + 50
+                        && shot.getY() + 8 > tank.y && shot.getY() < tank.y + 40) {
+                    shot.setLive(false);
+                    tank.setLive(false);
+                    if (tank instanceof EnemyTank) {
+                        MyPanel.enemyTanks.remove((EnemyTank) tank);
+                    }
+                    // 创建Bomb对象，加入到MyPanel的bombs集合中
+                    Bomb bomb = new Bomb(tank.x, tank.y);
+                    MyPanel.bombs.add(bomb);
+                }
+                break;
+            case LEFT:
+            case RIGHT:
+                if (shot.getX() + 8 > tank.x - 5 && shot.getX() < tank.x + 45
+                        && shot.getY() + 8 > tank.y + 5 && shot.getY() < tank.y + 45) {
+                    shot.setLive(false);
+                    tank.setLive(false);
+                    if (tank instanceof EnemyTank) {
+                        MyPanel.enemyTanks.remove((EnemyTank) tank);
+                    }
+                    // 创建Bomb对象，加入到MyPanel的bombs集合中
+                    Bomb bomb = new Bomb(tank.x, tank.y);
+                    MyPanel.bombs.add(bomb);
+                }
+                break;
         }
+
     }
 
     public void moveUp() {

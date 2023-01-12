@@ -58,11 +58,11 @@ public class MyTank extends Tank implements Runnable {
         if (isMoveUp() && !isMoveDown() && !isMoveLeft() && !isMoveRight()) {
             if (getY() > 2) moveUp();
         } else if (!isMoveUp() && isMoveDown() && !isMoveLeft() && !isMoveRight()) {
-            if (getY() < 718) moveDown();
+            if (getY() < 710) moveDown();
         } else if (!isMoveUp() && !isMoveDown() && isMoveLeft() && !isMoveRight()) {
-            if (getX() > 2) moveLeft();
+            if (getX() > 7) moveLeft();
         } else if (!isMoveUp() && !isMoveDown() && !isMoveLeft() && isMoveRight()) {
-            if (getX() < 940) moveRight();
+            if (getX() < 937) moveRight();
         }
     }
 }

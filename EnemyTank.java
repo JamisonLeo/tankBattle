@@ -36,7 +36,7 @@ public class EnemyTank extends Tank implements Runnable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (getY() < 718) moveDown();
+                    if (getY() < 710) moveDown();
                     else break;
                 }
                     break;
@@ -47,7 +47,7 @@ public class EnemyTank extends Tank implements Runnable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (getX() > 2) moveLeft();
+                    if (getX() > 7) moveLeft();
                     else break;
                 }
                     break;
@@ -58,7 +58,7 @@ public class EnemyTank extends Tank implements Runnable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (getX() < 940) moveRight();
+                    if (getX() < 937) moveRight();
                     else break;
                 }
                     break;
