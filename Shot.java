@@ -6,13 +6,13 @@ public class Shot implements Runnable {
     private int speed = 1;
     private Direction direction;
     private boolean isLive = true;
-    
+
     public Shot(int x, int y, Direction direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
     }
-    
+
     @Override
     public void run() {
         while (true) {
@@ -46,23 +46,23 @@ public class Shot implements Runnable {
             }
         }
     }
-    
+
     public int getX() {
         return x;
     }
-    
+
     public int getY() {
         return y;
     }
-    
+
     public int getSpeed() {
         return speed;
     }
-    
+
     public boolean isLive() {
         return isLive;
     }
-    
+
     public void setLive(boolean live) {
         isLive = live;
     }

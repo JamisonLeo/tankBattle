@@ -115,7 +115,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
 
     /**
      * 画出坦克
-     * 
+     *
      * @param x         横坐标
      * @param y         纵坐标
      * @param g         画笔
@@ -153,7 +153,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
 
     /**
      * 画出坦克所有的子弹
-     * 
+     *
      * @param g     画笔
      * @param shots 该坦克的子弹集合
      */

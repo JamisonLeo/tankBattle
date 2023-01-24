@@ -33,7 +33,7 @@ public class Tank {
 
     /**
      * 判断子弹是否击中敌方坦克
-     * 
+     *
      * @param shot 子弹
      * @param tank 坦克
      */

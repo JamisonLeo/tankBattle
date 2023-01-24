@@ -6,7 +6,7 @@ public class Game extends JFrame {
     public static void main(String[] args) {
         new Game();
     }
-    
+
     public Game() {
         MyPanel mp = new MyPanel();
         Thread thread = new Thread(mp);

@@ -1,7 +1,7 @@
 package tankbattle;
 
 public class EnemyTank extends Tank implements Runnable {
-    
+
     public EnemyTank(int x, int y) {
         super(x, y);
     }
@@ -19,51 +19,51 @@ public class EnemyTank extends Tank implements Runnable {
 
             switch (getDirection()) {
                 case UP:
-                for (int i = 0; i < 70; i++){
-                    try {
-                        Thread.sleep(20);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    for (int i = 0; i < 70; i++){
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (getY() > 2) moveUp();
+                        else break;
                     }
-                    if (getY() > 2) moveUp();
-                    else break;
-                }
                     break;
                 case DOWN:
-                for (int i = 0; i < 70; i++){
-                    try {
-                        Thread.sleep(20);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    for (int i = 0; i < 70; i++){
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (getY() < 710) moveDown();
+                        else break;
                     }
-                    if (getY() < 710) moveDown();
-                    else break;
-                }
                     break;
                 case LEFT:
-                for (int i = 0; i < 70; i++){
-                    try {
-                        Thread.sleep(20);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    for (int i = 0; i < 70; i++){
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (getX() > 7) moveLeft();
+                        else break;
                     }
-                    if (getX() > 7) moveLeft();
-                    else break;
-                }
                     break;
                 case RIGHT:
-                for (int i = 0; i < 70; i++){
-                    try {
-                        Thread.sleep(20);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    for (int i = 0; i < 70; i++){
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (getX() < 937) moveRight();
+                        else break;
                     }
-                    if (getX() < 937) moveRight();
-                    else break;
-                }
                     break;
             }
-            
+
             switch ((int)(Math.random() * 4)) {
                 case 0:
                     setDirection(Direction.UP);
