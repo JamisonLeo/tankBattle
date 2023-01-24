@@ -10,7 +10,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     // 我方坦克
     static Tank myTank = null;
     // 敌方坦克集合
-    static Vector<Tank> enemyTanks = new Vector<>();
+    static Vector<EnemyTank> enemyTanks = new Vector<>();
     // 敌方坦克数量
     int enemyTankSize = 3;
     // 敌方坦克子弹集合
@@ -40,6 +40,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         for (int i = 0; i < enemyTankSize; i++) {
             // 创建一个敌方坦克，并启动线程
             EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 700);
+            enemyTank.setEnemyTanks(enemyTanks);
             new Thread(enemyTank).start();
 
             // 加入
