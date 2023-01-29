@@ -79,7 +79,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         super.paint(g);
         g.setColor(Color.LIGHT_GRAY);
         g.fillRect(3, 0, 980, 760);
-        g.setColor(Color.black);
+        showInfo(g);
 
         // 画出我方坦克
         if (myTank != null && myTank.isLive()) {
@@ -166,6 +166,18 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                 g.fillOval(shot.getX(), shot.getY(), 8, 8);
             }
         }
+    }
+
+    /**
+     * 在界面右侧画出统计信息
+     */
+    public void showInfo(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("仿宋", Font.BOLD, 25));
+        g.drawString("累计击中敌方坦克", 985, 50);
+        drawTank(1045, 80, g, Direction.UP, 1);
+        g.setFont(new Font("黑体", Font.BOLD, 35));
+        g.drawString(String.valueOf(Recorder.getHitEnemyTankNum()), 1120, 120);
     }
 
     @Override

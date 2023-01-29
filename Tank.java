@@ -47,6 +47,7 @@ public class Tank {
                     tank.setLive(false);
                     if (tank instanceof EnemyTank) {
                         MyPanel.enemyTanks.remove((EnemyTank) tank);
+                        Recorder.addHitEnemyTankNum();
                     }
                     // 创建Bomb对象，加入到MyPanel的bombs集合中
                     Bomb bomb = new Bomb(tank.x, tank.y);
@@ -61,6 +62,7 @@ public class Tank {
                     tank.setLive(false);
                     if (tank instanceof EnemyTank) {
                         MyPanel.enemyTanks.remove((EnemyTank) tank);
+                        Recorder.addHitEnemyTankNum();
                     }
                     // 创建Bomb对象，加入到MyPanel的bombs集合中
                     Bomb bomb = new Bomb(tank.x, tank.y);
