@@ -130,6 +130,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                 .getImage(MyPanel.class.getResource("/tankBattle/file/bomb_2.png"));
         bomb3Image = Toolkit.getDefaultToolkit()
                 .getImage(MyPanel.class.getResource("/tankBattle/file/bomb_3.png"));
+
+        // 播放开始音乐
+        new AePlayWave("tankbattle/file/front.wav").start();
     }
 
     @Override
