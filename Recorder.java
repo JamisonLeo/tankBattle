@@ -1,6 +1,7 @@
 package tankbattle;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Vector;
@@ -11,34 +12,37 @@ import java.util.Vector;
 public class Recorder {
     private static int hitEnemyTankNum = 0;
     private static BufferedWriter bufferedWriter = null;
-    private static String recordFilePath = "hitEnemyTankNum.txt";
+    private static String recordDirectory = "tankbattle/GameTemp";
+    private static String recordFilePath = "tankbattle/GameTemp/Record.txt";
     private static Vector<EnemyTank> enemyTanks = null;
 
     /**
      * 当游戏退出时，将hitEnemyTankNum保存到recordFilePath
      */
     public static void saveRecord() {
-        if (hitEnemyTankNum != 0) {
-            try {
-                bufferedWriter = new BufferedWriter(new FileWriter(recordFilePath));
-                bufferedWriter.write(String.valueOf(hitEnemyTankNum));
-                bufferedWriter.newLine();
-                for (int i = 0; i < enemyTanks.size(); i++) {
-                    EnemyTank enemyTank = enemyTanks.get(i);
-                    if(enemyTank.isLive()) {
-                        bufferedWriter.write(enemyTank.getX() + " "
-                                + enemyTank.getY() + " " + enemyTank.getDirection());
-                    }
+        File file = new File(recordDirectory);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(recordFilePath));
+            bufferedWriter.write(String.valueOf(hitEnemyTankNum));
+            bufferedWriter.newLine();
+            for (int i = 0; i < enemyTanks.size(); i++) {
+                EnemyTank enemyTank = enemyTanks.get(i);
+                if (enemyTank.isLive()) {
+                    bufferedWriter.write(enemyTank.getX() + " "
+                            + enemyTank.getY() + " " + enemyTank.getDirection());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (bufferedWriter != null) {
-                    try {
-                        bufferedWriter.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
