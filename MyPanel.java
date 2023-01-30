@@ -31,26 +31,80 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     Image enemyTankLeftImage = null;
     Image enemyTankRightImage = null;
 
-    public MyPanel() {
+    public MyPanel(int key) {
         // 将enemyTanks设置给Recorder.enemyTanks用于结束时记录敌方坦克的信息
         Recorder.setEnemyTanks(enemyTanks);
 
-        // 创建我方坦克
-        myTank = new MyTank(100, 100);
-        myTank.setDirection(Direction.DOWN);
-        Recorder.setMyTank(myTank);
+        switch (key) {
+            // 新游戏
+            case 1:
+                Recorder.writeEmpty();
+                // 创建我方坦克
+                myTank = new MyTank(100, 100);
+                myTank.setDirection(Direction.DOWN);
+                Recorder.setMyTank(myTank);
 
-        // 创建敌方坦克
-        for (int i = 0; i < enemyTankSize; i++) {
-            // 创建一个敌方坦克，并启动线程
-            EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 700);
-            enemyTank.setEnemyTanks(enemyTanks);
-            new Thread(enemyTank).start();
+                // 创建敌方坦克
+                for (int i = 0; i < enemyTankSize; i++) {
+                    // 创建一个敌方坦克，并启动线程
+                    EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 700);
+                    enemyTank.setEnemyTanks(enemyTanks);
+                    new Thread(enemyTank).start();
 
-            // 加入
-            enemyTanks.add(enemyTank);
+                    // 加入
+                    enemyTanks.add(enemyTank);
+                }
+                break;
+            // 继续游戏
+            case 2:
+                // 恢复坦克集合
+                Vector<Node> nodes = Recorder.getNodesAndHitEnemyTankNum();
+                // 创建我方坦克
+                Node myTankNode = nodes.get(0);
+                myTank = new MyTank(myTankNode.getX(), myTankNode.getY());
+                switch (myTankNode.getDirection()) {
+                    case "上":
+                        myTank.setDirection(Direction.UP);
+                        break;
+                    case "下":
+                        myTank.setDirection(Direction.DOWN);
+                        break;
+                    case "左":
+                        myTank.setDirection(Direction.LEFT);
+                        break;
+                    case "右":
+                        myTank.setDirection(Direction.RIGHT);
+                        break;
+                }
+                Recorder.setMyTank(myTank);
+
+                // 创建敌方坦克
+                for (int i = 1; i < nodes.size(); i++) {
+                    Node enemyTankNode = nodes.get(i);
+                    // 创建一个敌方坦克，并启动线程
+                    EnemyTank enemyTank = new EnemyTank(enemyTankNode.getX(), enemyTankNode.getY());
+                    switch (enemyTankNode.getDirection()) {
+                        case "上":
+                            enemyTank.setDirection(Direction.UP);
+                            break;
+                        case "下":
+                            enemyTank.setDirection(Direction.DOWN);
+                            break;
+                        case "左":
+                            enemyTank.setDirection(Direction.LEFT);
+                            break;
+                        case "右":
+                            enemyTank.setDirection(Direction.RIGHT);
+                            break;
+                    }
+                    enemyTank.setEnemyTanks(enemyTanks);
+                    new Thread(enemyTank).start();
+
+                    // 加入
+                    enemyTanks.add(enemyTank);
+                }
+                break;
         }
-
         // 初始化坦克图片
         myTankUpImage = Toolkit.getDefaultToolkit()
                 .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_up.png"));
