@@ -32,6 +32,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     Image enemyTankRightImage = null;
 
     public MyPanel() {
+        // 将enemyTanks设置给Recorder.enemyTanks用于结束时记录敌方坦克的信息
+        Recorder.setEnemyTanks(enemyTanks);
+
         // 创建我方坦克
         myTank = new MyTank(100, 100);
         myTank.setDirection(Direction.DOWN);
