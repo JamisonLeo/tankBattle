@@ -14,35 +14,41 @@ public class Recorder {
     private static BufferedWriter bufferedWriter = null;
     private static String recordDirectory = "tankbattle/GameTemp";
     private static String recordFilePath = "tankbattle/GameTemp/Record.txt";
+    private static MyTank myTank = null;
     private static Vector<EnemyTank> enemyTanks = null;
 
     /**
      * 当游戏退出时，将hitEnemyTankNum保存到recordFilePath
      */
     public static void saveRecord() {
-        File file = new File(recordDirectory);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        try {
-            bufferedWriter = new BufferedWriter(new FileWriter(recordFilePath));
-            bufferedWriter.write(String.valueOf(hitEnemyTankNum));
-            bufferedWriter.newLine();
-            for (int i = 0; i < enemyTanks.size(); i++) {
-                EnemyTank enemyTank = enemyTanks.get(i);
-                if (enemyTank.isLive()) {
-                    bufferedWriter.write(enemyTank.getX() + " "
-                            + enemyTank.getY() + " " + enemyTank.getDirection());
-                }
+        if(myTank.isLive()) {
+            File file = new File(recordDirectory);
+            if (!file.exists()) {
+                file.mkdirs();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (bufferedWriter != null) {
-                try {
-                    bufferedWriter.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                bufferedWriter = new BufferedWriter(new FileWriter(recordFilePath));
+                bufferedWriter.write(myTank.getX() + " " + myTank.getY() + " " + myTank.getDirection());
+                bufferedWriter.newLine();
+                bufferedWriter.write(String.valueOf(hitEnemyTankNum));
+                bufferedWriter.newLine();
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    if (enemyTank.isLive()) {
+                        bufferedWriter.write(enemyTank.getX() + " "
+                                + enemyTank.getY() + " " + enemyTank.getDirection());
+                        bufferedWriter.newLine();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (bufferedWriter != null) {
+                    try {
+                        bufferedWriter.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -58,6 +64,10 @@ public class Recorder {
 
     public static void addHitEnemyTankNum() {
         ++Recorder.hitEnemyTankNum;
+    }
+
+    public static void setMyTank(MyTank myTank) {
+        Recorder.myTank = myTank;
     }
 
     public static void setEnemyTanks(Vector<EnemyTank> enemyTanks) {

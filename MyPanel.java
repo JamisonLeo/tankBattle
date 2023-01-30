@@ -8,7 +8,7 @@ import java.util.Vector;
 
 public class MyPanel extends JPanel implements KeyListener, Runnable {
     // 我方坦克
-    static Tank myTank = null;
+    static MyTank myTank = null;
     // 敌方坦克集合
     static Vector<EnemyTank> enemyTanks = new Vector<>();
     // 敌方坦克数量
@@ -38,6 +38,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         // 创建我方坦克
         myTank = new MyTank(100, 100);
         myTank.setDirection(Direction.DOWN);
+        Recorder.setMyTank(myTank);
 
         // 创建敌方坦克
         for (int i = 0; i < enemyTankSize; i++) {
