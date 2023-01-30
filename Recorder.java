@@ -15,8 +15,8 @@ public class Recorder {
     private static int hitEnemyTankNum = 0;
     private static BufferedWriter bufferedWriter = null;
     private static BufferedReader bufferedReader = null;
-    private static String recordDirectory = "tankbattle/GameTemp";
-    private static String recordFilePath = "tankbattle/GameTemp/Record.txt";
+    private static String recordDirectory = "tankbattle/file";
+    private static String recordFilePath = "tankbattle/file/Record.txt";
     private static MyTank myTank = null;
     private static Vector<EnemyTank> enemyTanks = null;
     private static Vector<Node> nodes = new Vector<>();

@@ -107,29 +107,29 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
         // 初始化坦克图片
         myTankUpImage = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_up.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/mytank_up.png"));
         myTankDownImage = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_down.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/mytank_down.png"));
         myTankLeftImage = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_left.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/mytank_left.png"));
         myTankRightImage = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/mytank_right.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/mytank_right.png"));
         enemyTankUpImage = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_up.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/enemytank_up.png"));
         enemyTankDownImage = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_down.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/enemytank_down.png"));
         enemyTankLeftImage = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_left.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/enemytank_left.png"));
         enemyTankRightImage = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/enemytank_right.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/enemytank_right.png"));
 
         // 初始化爆炸效果的图片
         bomb1Image = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_1.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/bomb_1.png"));
         bomb2Image = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_2.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/bomb_2.png"));
         bomb3Image = Toolkit.getDefaultToolkit()
-                .getImage(MyPanel.class.getResource("/tankBattle/images/bomb_3.png"));
+                .getImage(MyPanel.class.getResource("/tankBattle/file/bomb_3.png"));
     }
 
     @Override
